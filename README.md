@@ -6,8 +6,8 @@ I made it so my API access keys are not public, so if a user wants to use this a
 
 #Features
 
-    providing nutrient values of any listed food, singular or multiple form,
-    doing the same, but with multiple products
+- providing nutrient values of any listed food, singular or multiple form,
+- doing the same, but with multiple products
 
 #Running
 
