@@ -1,0 +1,10 @@
+- połączeniem aplikacji z API jedzenia, aby pozyskać gotowe produkty z wszystkimi wartościami odżywczymi,
+- baza produktów z API z możliwością dodania własnych produktów,
+- baza przepisów składających się z produktów pobieranych z bazy produktów,
+- obliczanie BMI i zapotrzebowania kalorycznego oraz nawodnienia,
+- możliwość śledzenia codziennego spożycia wartości odżywczych oraz do tego proste wykresy,
+- śledzenie dziennego spożycia wody,
+- wykres kilogramów względem czasu (pokazane spadki/wzrosty na przestrzeni miesięcy),
+- odnośniki do stron zawierających przydatne porady żywieniowe oraz polecane przez dietetyków produkty,
+- przygotowanie własnych przepisów wraz z ich wartościami odżywczymi, a nie tylko sciąganie z gotowych baz,
+- pokazanie czego brakuje w naszej diecie - co powinniśmy uzupełnić.
