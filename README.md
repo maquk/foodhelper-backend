@@ -4,12 +4,12 @@ FoodHelper app is a mobile app designed to help you track nutrients from foods y
 
 I made it so my API access keys are not public, so if a user wants to use this app he has to get his own keys. They are available on this website: https://developer.nutritionix.com/admin/access_details
 
-#Features
+# Features
 
 - providing nutrient values of any listed food, singular or multiple form,
 - doing the same, but with multiple products
 
-#Running
+# Running
 
 Suggested running in IDE, preferably IntellIJ.
 
