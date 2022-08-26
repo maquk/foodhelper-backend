@@ -58,8 +58,10 @@ public class RecipeService {
         recipeRepository.deleteById(id);
     }
 
-    public List<Recipe> findRecipeUpToCalories(BigDecimal calories){
-        return recipeRepository.findRecipeUpToCalories(calories);
+    public List<RecipeDTO> findRecipeUpToCalories(BigDecimal calories){
+        List<Recipe> recipes = recipeRepository.findRecipeUpToCalories(calories);
+        return recipes.stream()
+                .map(recipe -> modelMapper.map(recipe, RecipeDTO.class)).collect(Collectors.toList());
     }
 
 }
