@@ -3,18 +3,16 @@ package foodhelper.backend.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.util.List;
+import java.math.BigDecimal;
 
-@Data
 @Entity
-public class DailyIntake {
+@Data
+public class ProductConsumed {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private LocalDate date;
-
-    @OneToMany
-    private List<Product> products;
+    @OneToOne
+    private Product product;
+    private BigDecimal grams;
 }

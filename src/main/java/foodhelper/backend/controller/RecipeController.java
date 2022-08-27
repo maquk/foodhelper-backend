@@ -1,5 +1,6 @@
 package foodhelper.backend.controller;
 
+import foodhelper.backend.dto.NutrientDTO;
 import foodhelper.backend.dto.ProductDTO;
 import foodhelper.backend.dto.RecipeDTO;
 import foodhelper.backend.service.RecipeService;
@@ -54,9 +55,9 @@ public class RecipeController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/find/{calories}")
-    public ResponseEntity<?> findRecipeUpToCalories(@PathVariable BigDecimal calories) {
-        return ResponseEntity.ok(recipeService.findRecipeUpToCalories(calories));
+    @GetMapping("/find")
+    public ResponseEntity<?> findRecipeUpToCalories(@RequestBody NutrientDTO nutrientDTO) {
+        return ResponseEntity.ok(recipeService.findRecipeUpToCalories(nutrientDTO));
     }
 
 }

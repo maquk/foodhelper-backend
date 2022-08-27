@@ -1,6 +1,6 @@
 package foodhelper.backend.repository;
 
-import foodhelper.backend.dto.RecipeDTO;
+import foodhelper.backend.dto.NutrientDTO;
 import foodhelper.backend.model.Recipe;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +19,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
             " recipe.id = recipe_products.recipe_id JOIN PRODUCT ON recipe_products.products_id" +
             " = product.id GROUP BY RECIPE.id HAVING SUM(product.calories) < :calories", nativeQuery = true)
     List<Recipe> findRecipeUpToCalories(@Param("calories") BigDecimal calories);
+
 }

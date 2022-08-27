@@ -1,5 +1,6 @@
 package foodhelper.backend.service;
 
+import foodhelper.backend.dto.NutrientDTO;
 import foodhelper.backend.dto.RecipeDTO;
 import foodhelper.backend.exception.EntityNotFoundException;
 import foodhelper.backend.model.Recipe;
@@ -58,10 +59,12 @@ public class RecipeService {
         recipeRepository.deleteById(id);
     }
 
-    public List<RecipeDTO> findRecipeUpToCalories(BigDecimal calories){
-        List<Recipe> recipes = recipeRepository.findRecipeUpToCalories(calories);
+    public List<RecipeDTO> findRecipeUpToCalories(NutrientDTO nutrientDTO){
+        List<Recipe> recipes = recipeRepository.findRecipeUpToCalories(nutrientDTO.getCalories());
+        
         return recipes.stream()
                 .map(recipe -> modelMapper.map(recipe, RecipeDTO.class)).collect(Collectors.toList());
+
     }
 
 }
