@@ -1,5 +1,6 @@
 package foodhelper.backend.dto;
 
+import foodhelper.backend.enums.NutrientValue;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -10,4 +11,5 @@ public class NutrientDTO {
     private BigDecimal protein = BigDecimal.ZERO;
     private BigDecimal fat = BigDecimal.ZERO;
     private BigDecimal carbohydrates = BigDecimal.ZERO;
+    private NutrientValue nutrientValue;
 }

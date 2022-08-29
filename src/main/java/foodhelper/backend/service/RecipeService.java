@@ -3,6 +3,8 @@ package foodhelper.backend.service;
 import foodhelper.backend.dto.NutrientDTO;
 import foodhelper.backend.dto.RecipeDTO;
 import foodhelper.backend.exception.EntityNotFoundException;
+import foodhelper.backend.exception.NutrientValueNotFoundException;
+import foodhelper.backend.model.Product;
 import foodhelper.backend.model.Recipe;
 import foodhelper.backend.repository.RecipeRepository;
 import org.modelmapper.ModelMapper;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,12 +62,56 @@ public class RecipeService {
         recipeRepository.deleteById(id);
     }
 
-    public List<RecipeDTO> findRecipeUpToCalories(NutrientDTO nutrientDTO){
-        List<Recipe> recipes = recipeRepository.findRecipeUpToCalories(nutrientDTO.getCalories());
-        
-        return recipes.stream()
+    public List<RecipeDTO> findRecipeByNutrientValues(NutrientDTO nutrientDTO){
+        List<Recipe> recipes = recipeRepository
+                .findRecipeByNutrientValues(nutrientDTO.getFat(), nutrientDTO.getProtein(), nutrientDTO.getCarbohydrates());
+        switch (nutrientDTO.getNutrientValue()) {
+            case FAT:
+                Collections.sort(recipes, (o1, o2) -> {
+                    BigDecimal sum1 = BigDecimal.ZERO;
+                    for (Product product : o1.getProducts()) {
+                        sum1 = sum1.add(product.getFat());
+                    }
+                    BigDecimal sum2 = BigDecimal.ZERO;
+                    for (Product product : o1.getProducts()) {
+                        sum2 = sum2.add(product.getFat());
+                    }
+                    return sum1.compareTo(sum2);
+                });
+                break;
+            case PROTEIN:
+                Collections.sort(recipes, (o1, o2) -> {
+                    BigDecimal sum1 = BigDecimal.ZERO;
+                    for (Product product : o1.getProducts()) {
+                        sum1 = sum1.add(product.getProtein());
+                    }
+                    BigDecimal sum2 = BigDecimal.ZERO;
+                    for (Product product : o1.getProducts()) {
+                        sum2 = sum2.add(product.getProtein());
+                    }
+                    return sum1.compareTo(sum2);
+                });
+                break;
+            case CARBOHYDRATES:
+                Collections.sort(recipes, (o1, o2) -> {
+                    BigDecimal sum1 = BigDecimal.ZERO;
+                    for (Product product : o1.getProducts()) {
+                        sum1 = sum1.add(product.getCarbohydrates());
+                    }
+                    BigDecimal sum2 = BigDecimal.ZERO;
+                    for (Product product : o1.getProducts()) {
+                        sum2 = sum2.add(product.getCarbohydrates());
+                    }
+                    return sum1.compareTo(sum2);
+                });
+                break;
+            default:
+                throw new NutrientValueNotFoundException("Nutrient Value with name " +
+                        nutrientDTO.getNutrientValue() +
+                        " not found");
+        }
+        List<RecipeDTO> recipesDTOS = recipes.stream()
                 .map(recipe -> modelMapper.map(recipe, RecipeDTO.class)).collect(Collectors.toList());
-
+        return recipesDTOS;
     }
-
 }

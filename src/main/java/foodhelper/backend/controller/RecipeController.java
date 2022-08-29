@@ -1,14 +1,12 @@
 package foodhelper.backend.controller;
 
 import foodhelper.backend.dto.NutrientDTO;
-import foodhelper.backend.dto.ProductDTO;
 import foodhelper.backend.dto.RecipeDTO;
 import foodhelper.backend.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -56,8 +54,8 @@ public class RecipeController {
     }
 
     @GetMapping("/find")
-    public ResponseEntity<?> findRecipeUpToCalories(@RequestBody NutrientDTO nutrientDTO) {
-        return ResponseEntity.ok(recipeService.findRecipeUpToCalories(nutrientDTO));
+    public ResponseEntity<?> findRecipeByNutrientValues(@RequestBody NutrientDTO nutrientDTO) {
+        return ResponseEntity.ok(recipeService.findRecipeByNutrientValues(nutrientDTO));
     }
 
 }
