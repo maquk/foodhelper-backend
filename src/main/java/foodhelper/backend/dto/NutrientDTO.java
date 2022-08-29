@@ -1,6 +1,6 @@
 package foodhelper.backend.dto;
 
-import foodhelper.backend.enums.NutrientValue;
+import foodhelper.backend.model.NutrientValue;
 import lombok.Data;
 
 import java.math.BigDecimal;

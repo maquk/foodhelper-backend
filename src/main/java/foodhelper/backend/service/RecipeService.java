@@ -73,10 +73,10 @@ public class RecipeService {
                         sum1 = sum1.add(product.getFat());
                     }
                     BigDecimal sum2 = BigDecimal.ZERO;
-                    for (Product product : o1.getProducts()) {
+                    for (Product product : o2.getProducts()) {
                         sum2 = sum2.add(product.getFat());
                     }
-                    return sum1.compareTo(sum2);
+                    return sum2.compareTo(sum1);
                 });
                 break;
             case PROTEIN:
@@ -86,10 +86,10 @@ public class RecipeService {
                         sum1 = sum1.add(product.getProtein());
                     }
                     BigDecimal sum2 = BigDecimal.ZERO;
-                    for (Product product : o1.getProducts()) {
+                    for (Product product : o2.getProducts()) {
                         sum2 = sum2.add(product.getProtein());
                     }
-                    return sum1.compareTo(sum2);
+                    return sum2.compareTo(sum1);
                 });
                 break;
             case CARBOHYDRATES:
@@ -99,10 +99,10 @@ public class RecipeService {
                         sum1 = sum1.add(product.getCarbohydrates());
                     }
                     BigDecimal sum2 = BigDecimal.ZERO;
-                    for (Product product : o1.getProducts()) {
+                    for (Product product : o2.getProducts()) {
                         sum2 = sum2.add(product.getCarbohydrates());
                     }
-                    return sum1.compareTo(sum2);
+                    return sum2.compareTo(sum1);
                 });
                 break;
             default:

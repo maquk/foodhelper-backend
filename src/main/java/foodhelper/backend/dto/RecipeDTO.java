@@ -1,6 +1,5 @@
 package foodhelper.backend.dto;
 
-import foodhelper.backend.model.Product;
 import foodhelper.backend.model.RecipeDifficulty;
 import lombok.Data;
 
