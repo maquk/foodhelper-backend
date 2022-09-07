@@ -13,5 +13,5 @@ public class RecipeDTO {
     private Integer preparationTime;
     private String description;
     private RecipeDifficulty recipeDifficulty;
-    private List<ProductDTO> products;
+    private List<ProductConsumedDTO> products;
 }

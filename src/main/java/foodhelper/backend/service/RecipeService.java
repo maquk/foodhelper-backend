@@ -5,6 +5,7 @@ import foodhelper.backend.dto.RecipeDTO;
 import foodhelper.backend.exception.EntityNotFoundException;
 import foodhelper.backend.exception.NutrientValueNotFoundException;
 import foodhelper.backend.model.Product;
+import foodhelper.backend.model.ProductConsumed;
 import foodhelper.backend.model.Recipe;
 import foodhelper.backend.repository.RecipeRepository;
 import org.modelmapper.ModelMapper;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -69,12 +71,14 @@ public class RecipeService {
             case FAT:
                 Collections.sort(recipes, (o1, o2) -> {
                     BigDecimal sum1 = BigDecimal.ZERO;
-                    for (Product product : o1.getProducts()) {
-                        sum1 = sum1.add(product.getFat());
+                    for (ProductConsumed product : o1.getProducts()) {
+                        sum1 = sum1.add(product.getProduct().getFat()
+                                .multiply(product.getGrams().divide(product.getProduct().getGrams(), 2, RoundingMode.HALF_UP)));
                     }
                     BigDecimal sum2 = BigDecimal.ZERO;
-                    for (Product product : o2.getProducts()) {
-                        sum2 = sum2.add(product.getFat());
+                    for (ProductConsumed product : o2.getProducts()) {
+                        sum2 = sum2.add(product.getProduct().getFat()
+                                .multiply(product.getGrams().divide(product.getProduct().getGrams(), 2, RoundingMode.HALF_UP)));
                     }
                     return sum2.compareTo(sum1);
                 });
@@ -82,12 +86,14 @@ public class RecipeService {
             case PROTEIN:
                 Collections.sort(recipes, (o1, o2) -> {
                     BigDecimal sum1 = BigDecimal.ZERO;
-                    for (Product product : o1.getProducts()) {
-                        sum1 = sum1.add(product.getProtein());
+                    for (ProductConsumed product : o1.getProducts()) {
+                        sum1 = sum1.add(product.getProduct().getProtein()
+                                .multiply(product.getGrams().divide(product.getProduct().getGrams(), 2, RoundingMode.HALF_UP)));
                     }
                     BigDecimal sum2 = BigDecimal.ZERO;
-                    for (Product product : o2.getProducts()) {
-                        sum2 = sum2.add(product.getProtein());
+                    for (ProductConsumed product : o2.getProducts()) {
+                        sum2 = sum2.add(product.getProduct().getProtein()
+                                .multiply(product.getGrams().divide(product.getProduct().getGrams(), 2, RoundingMode.HALF_UP)));
                     }
                     return sum2.compareTo(sum1);
                 });
@@ -95,12 +101,14 @@ public class RecipeService {
             case CARBOHYDRATES:
                 Collections.sort(recipes, (o1, o2) -> {
                     BigDecimal sum1 = BigDecimal.ZERO;
-                    for (Product product : o1.getProducts()) {
-                        sum1 = sum1.add(product.getCarbohydrates());
+                    for (ProductConsumed product : o1.getProducts()) {
+                        sum1 = sum1.add(product.getProduct().getCarbohydrates()
+                                .multiply(product.getGrams().divide(product.getProduct().getGrams(), 2, RoundingMode.HALF_UP)));
                     }
                     BigDecimal sum2 = BigDecimal.ZERO;
-                    for (Product product : o2.getProducts()) {
-                        sum2 = sum2.add(product.getCarbohydrates());
+                    for (ProductConsumed product : o2.getProducts()) {
+                        sum2 = sum2.add(product.getProduct().getCarbohydrates()
+                                .multiply(product.getGrams().divide(product.getProduct().getGrams(), 2, RoundingMode.HALF_UP)));
                     }
                     return sum2.compareTo(sum1);
                 });

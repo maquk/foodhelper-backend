@@ -17,7 +17,7 @@ public class Recipe {
     private String description;
     private RecipeDifficulty recipeDifficulty;
 
-    @OneToMany
-    private List<Product> products;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<ProductConsumed> products;
 
 }

@@ -2,6 +2,7 @@ package foodhelper.backend.service;
 
 import foodhelper.backend.dto.MealDTO;
 import foodhelper.backend.dto.NutrientDTO;
+import foodhelper.backend.exception.EntityNotFoundException;
 import foodhelper.backend.model.Meal;
 import foodhelper.backend.model.Product;
 import foodhelper.backend.model.ProductConsumed;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -32,6 +34,12 @@ public class MealService {
         this.productConsumedRepository = productConsumedRepository;
         this.productService = productService;
         this.modelMapper = modelMapper;
+    }
+
+    public MealDTO findById(Long id) {
+        Meal meal = mealRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Meal with id " + id + " not found"));
+        return modelMapper.map(meal, MealDTO.class);
     }
 
     public void save(MealDTO mealDTO) {
@@ -61,13 +69,13 @@ public class MealService {
             BigDecimal carbohydrates = BigDecimal.ZERO;
             for (ProductConsumed productConsumed : meal.getProductConsumeds()) {
                 calories = calories.add(productConsumed.getProduct().getCalories()
-                        .multiply(productConsumed.getGrams().divide(productConsumed.getProduct().getGrams())));
+                        .multiply(productConsumed.getGrams().divide(productConsumed.getProduct().getGrams(), 2, RoundingMode.HALF_UP)));
                 proteins = proteins.add(productConsumed.getProduct().getProtein()
-                        .multiply(productConsumed.getGrams().divide(productConsumed.getProduct().getGrams())));
+                        .multiply(productConsumed.getGrams().divide(productConsumed.getProduct().getGrams(), 2, RoundingMode.HALF_UP)));
                 fats = fats.add(productConsumed.getProduct().getFat()
-                        .multiply(productConsumed.getGrams().divide(productConsumed.getProduct().getGrams())));
+                        .multiply(productConsumed.getGrams().divide(productConsumed.getProduct().getGrams(), 2, RoundingMode.HALF_UP)));
                 carbohydrates = carbohydrates.add(productConsumed.getProduct().getCarbohydrates()
-                        .multiply(productConsumed.getGrams().divide(productConsumed.getProduct().getGrams())));
+                        .multiply(productConsumed.getGrams().divide(productConsumed.getProduct().getGrams(), 2, RoundingMode.HALF_UP)));
             }
             nutrientDTO.setCalories(nutrientDTO.getCalories().add(calories));
             nutrientDTO.setProtein(nutrientDTO.getProtein().add(proteins));
