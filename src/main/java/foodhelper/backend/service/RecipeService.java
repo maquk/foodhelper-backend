@@ -11,6 +11,7 @@ import foodhelper.backend.repository.RecipeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -55,13 +56,20 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
+    @Transactional
     public void update(RecipeDTO recipeDTO) {
+        Recipe recipe = modelMapper.map(recipeDTO, Recipe.class);
+        deleteByName(recipe.getName());
         recipeRepository.save(modelMapper.map(recipeDTO, Recipe.class));
-
     }
 
     public void deleteById(Long id) {
         recipeRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void deleteByName(String name) {
+        recipeRepository.deleteByName(name);
     }
 
     public List<RecipeDTO> findRecipeByNutrientValues(NutrientDTO nutrientDTO){

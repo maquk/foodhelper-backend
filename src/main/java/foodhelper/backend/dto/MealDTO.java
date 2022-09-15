@@ -10,4 +10,5 @@ public class MealDTO {
     private Long id;
     private LocalDate date;
     private List<ProductConsumedDTO> productConsumeds;
+    private List<String> mealNames;
 }

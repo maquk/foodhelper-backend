@@ -42,4 +42,10 @@ public class MealController {
     public ResponseEntity<?> findAllByDate(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return ResponseEntity.ok(mealService.findAllByDate(date));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        mealService.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
 }

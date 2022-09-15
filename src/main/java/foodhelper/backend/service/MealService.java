@@ -2,6 +2,7 @@ package foodhelper.backend.service;
 
 import foodhelper.backend.dto.MealDTO;
 import foodhelper.backend.dto.NutrientDTO;
+import foodhelper.backend.dto.ProductDTO;
 import foodhelper.backend.exception.EntityNotFoundException;
 import foodhelper.backend.model.Meal;
 import foodhelper.backend.model.Product;
@@ -16,6 +17,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MealService {
@@ -82,6 +84,12 @@ public class MealService {
             nutrientDTO.setFat(nutrientDTO.getFat().add(fats));
             nutrientDTO.setCarbohydrates(nutrientDTO.getCarbohydrates().add(carbohydrates));
         }
+        nutrientDTO.setMeals(meals.stream()
+                .map(meal -> modelMapper.map(meal, MealDTO.class)).collect(Collectors.toList()));
         return nutrientDTO;
+    }
+
+    public void deleteById(Long id) {
+        mealRepository.deleteById(id);
     }
 }

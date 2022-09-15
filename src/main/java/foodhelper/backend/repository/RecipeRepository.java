@@ -27,4 +27,5 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
             @Param("protein") BigDecimal protein,
             @Param("carbohydrates") BigDecimal carbohydrates);
 
+    void deleteByName(String name);
 }

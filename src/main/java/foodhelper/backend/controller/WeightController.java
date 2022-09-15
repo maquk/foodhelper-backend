@@ -34,6 +34,7 @@ public class WeightController {
     @GetMapping
     public ResponseEntity<?> findAllByDateBetween(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
                                                   @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate) {
+        System.out.println("JESTEM");
         return ResponseEntity.ok(weightService.findAllByDateBetween(fromDate, toDate));
     }
 }

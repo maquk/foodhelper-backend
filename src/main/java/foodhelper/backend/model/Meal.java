@@ -17,4 +17,7 @@ public class Meal {
 
     @OneToMany
     private List<ProductConsumed> productConsumeds;
+
+    @ElementCollection
+    private List<String> mealNames;
 }
